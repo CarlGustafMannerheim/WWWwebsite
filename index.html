@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Club NSPM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        body.dark-mode .container {
+            background-color: #1e1e1e;
+            border-color: #333;
+            box-shadow: none;
+        }
+
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode .team-name {
+            color: #ffffff;
+        }
+
+        body.dark-mode .team-member, body.dark-mode .stats-table td {
+            background-color: #2d2d2d;
+            border-color: #444;
+        }
+
+        body.dark-mode .price-table th {
+            background-color: #333;
+            color: white;
+        }
+
+        .nav-menu {
+            text-align: center;
+            background-color: #1a1a1a;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .nav-menu button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            margin: 0 10px;
+            padding: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-menu button:hover, .nav-menu button.active {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            margin: 0 auto 40px auto;
+            background-color: white;
+            padding: 40px;
+            border: 1px solid #e1e1e1;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h1, h2 { text-align: center; }
+        .logo-img { display: block; margin: 0 auto 20px auto; width: 150px; }
+        
+        .stats-table { width: 100%; border-spacing: 10px; border-collapse: separate; }
+        .stats-table td { text-align: center; padding: 20px; background-color: #f8f9fa; border-radius: 8px; }
+        .stats-number { font-size: 32px; font-weight: bold; color: #0066cc; display: block; }
+
+        #searchInput {
+            width: 96%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #0066cc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .team-member {
+            display: inline-block;
+            width: 28%;
+            text-align: center;
+            margin: 2%;
+            padding: 20px 10px;
+            border: 1px solid #eeeeee;
+            border-radius: 8px;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+        
+        .team-role { color: #0066cc; font-weight: bold; margin-bottom: 5px; }
+        .team-name { font-weight: bold; margin-bottom: 5px; }
+
+        .price-table { width: 100%; border-collapse: collapse; }
+        .price-table th, .price-table td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        
+        .btn {
+            background-color: #0066cc; color: white; padding: 14px 20px; border: none;
+            border-radius: 6px; cursor: pointer; width: 100%; font-size: 16px;
+        }
+
+        @media (max-width: 600px) {
+            .team-member, .stats-table td { display: block; width: 100%; margin-bottom: 10px; }
+            .nav-menu button { display: block; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-menu">
+        <button onclick="showTab('home')" class="active" id="btn-home">Главная</button>
+        <button onclick="showTab('team')" id="btn-team">Команда</button>
+        <button onclick="showTab('docs')" id="btn-docs">Документы</button>
+        <button onclick="showTab('contact')" id="btn-contact">Вступить</button>
+        <button onclick="toggleTheme()">🌓 Тема</button>
+    </div>
+
+    <div id="home" class="container">
+        <img src="https://placehold.co/150x150/0066cc/FFFFFF?text=GERB" alt="Герб" class="logo-img">
+        <h1>Historical Club NSPM</h1>
+        <p style="text-align:center;">Сохраняя историю, создаем будущее.</p>
+
+        <table class="stats-table">
+            <tr>
+                <td><span class="stats-number">2023</span>Год основания</td>
+                <td><span class="stats-number">8</span>Школ</td>
+                <td><span class="stats-number">15</span>Турниров</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="team" class="container hidden">
+        <h2>Совет Клуба</h2>
+        
+        <input type="text" id="searchInput" onkeyup="filterTeam()" placeholder="Поиск по имени или роли...">
+
+        <div id="teamList">
+            <div class="team-member">
+                <div style="font-size:40px;">👩‍🏫</div>
+                <div class="team-role">Куратор</div>
+                <div class="team-name">Байсакова Асель</div>
+            </div>
+            <div class="team-member">
+                <div style="font-size:40px;">🧑‍🎓</div>
+                <div class="team-role">Президент</div>
+                <div class="team-name">Аканаев Арлан</div>
+            </div>
+            <div class="team-member">
+                <div style="font-size:40px;">👩‍💻</div>
+                <div class="team-role">IT Lead</div>
+                <div class="team-name">Твое Имя</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="docs" class="container hidden">
+        <h2>Призовой фонд 2025</h2>
+        <table class="price-table">
+            <tr style="background-color:rgba(0,0,0,0.05);"><th>Место</th><th>Награда</th></tr>
+            <tr><td>🏆 Гран-при</td><td>60 000 ₸</td></tr>
+            <tr><td>🥇 1 Место</td><td>45 000 ₸</td></tr>
+            <tr><td>🥈 2 Место</td><td>30 000 ₸</td></tr>
+            <tr><td>🥉 3 Место</td><td>18 000 ₸</td></tr>
+        </table>
+    </div>
+
+    <div id="contact" class="container hidden">
+        <h2>Подать заявку</h2>
+        <input type="text" id="name" placeholder="Ваше Имя" style="width:96%; padding:10px; margin-bottom:10px;">
+        <input type="text" id="grade" placeholder="Класс" style="width:96%; padding:10px; margin-bottom:10px;">
+        <button class="btn" onclick="sendForm()">Отправить</button>
+        <p id="msg" style="color:green; display:none; text-align:center; margin-top:10px;"></p>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            var containers = document.querySelectorAll('.container');
+            for (var i = 0; i < containers.length; i++) {
+                containers[i].classList.add('hidden');
+            }
+
+            var buttons = document.querySelectorAll('.nav-menu button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        function filterTeam() {
+            var input = document.getElementById('searchInput');
+            var filter = input.value.toUpperCase();
+            var list = document.getElementById("teamList");
+            var members = list.getElementsByClassName('team-member');
+
+            for (var i = 0; i < members.length; i++) {
+                var txtValue = members[i].textContent || members[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    members[i].style.display = "";
+                } else {
+                    members[i].style.display = "none";
+                }
+            }
+        }
+
+        function sendForm() {
+            var name = document.getElementById('name').value;
+            if (name === "") {
+                alert("Введите имя!");
+            } else {
+                document.getElementById('msg').style.display = "block";
+                document.getElementById('msg').innerText = "Заявка отправлена!";
+            }
+        }
+    </script>
+
+</body>
+</html>
